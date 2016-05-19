@@ -513,3 +513,44 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+
+
+/*Add some classes for weektime*/
+
+
+.cal-cell-1-7 {
+  width: 14.285714285714285%;
+}
+
+
+.cal-offset-1-7 {
+  left: 14.285714285714285%;
+}
+.cal-offset-2-7 {
+  left: 28.57142857142857%;
+}
+.cal-offset-3-7 {
+  left: 42.85714285714286%
+}
+.cal-offset-4-7 {
+  left: 57.14285714285714%
+}
+.cal-offset-5-7 {
+  left: 71.42857142857143%
+}
+.cal-offset-6-7 {
+  left: 85.71428571428571%
+}
+
+.day-time-highlight {
+  line-height: 30px;
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #c3c3c3;
+  overflow: hidden;
+  background-color: #dddddd;
+  text-overflow: ellipsis;
+}
