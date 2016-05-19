@@ -56,7 +56,7 @@ if(!String.prototype.formatNum) {
         tooltip_container : 'body',
 		// Width of the calendar
 		width: '100%',
-		// Initial view (can be 'month', 'week', 'day')
+		// Initial view (can be 'month', 'week', 'day', 'weektime')
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
@@ -121,6 +121,9 @@ if(!String.prototype.formatNum) {
 			week: {
 				enable: 1
 			},
+			weektime: {
+				enable: 1
+			},
 			day: {
 				enable: 1
 			}
@@ -156,6 +159,7 @@ if(!String.prototype.formatNum) {
 			year: '',
 			month: '',
 			week: '',
+			weektime: '',
 			day: ''
 		},
 		stop_cycling: false
@@ -443,6 +447,7 @@ if(!String.prototype.formatNum) {
 			case 'month':
 				break;
 			case 'week':
+			case 'weektime':
 				this._calculate_hour_minutes(data);
 				break;
 			case 'day':
@@ -588,7 +593,12 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._week = function(event) {
-		this._loadTemplate('week-days');
+		if(event == "weektime-days") {
+			this._loadTemplate('weektime-days');
+		}
+		else {
+			this._loadTemplate('week-days');
+		}
 
 		var t = {};
 		var start = parseInt(this.options.position.start.getTime());
@@ -624,7 +634,11 @@ if(!String.prototype.formatNum) {
 		});
 		t.events = events;
 		t.cal = this;
-		return self.options.templates['week-days'](t);
+		if(event == "weektime-days") {
+			this._calculate_hour_minutes(t); //Necesary for get by_hours in template
+			return self.options.templates['weektime-days'](t);
+		}
+		else return self.options.templates['week-days'](t);
 	}
 
 	Calendar.prototype._month = function(month) {
@@ -776,6 +790,7 @@ if(!String.prototype.formatNum) {
 					to.start.setMonth(this.options.position.start.getMonth() + 1);
 					break;
 				case 'week':
+				case 'weektime':
 					to.start.setDate(this.options.position.start.getDate() + 7);
 					break;
 				case 'day':
@@ -791,6 +806,7 @@ if(!String.prototype.formatNum) {
 					to.start.setMonth(this.options.position.start.getMonth() - 1);
 					break;
 				case 'week':
+				case 'weektime':
 					to.start.setDate(this.options.position.start.getDate() - 7);
 					break;
 				case 'day':
@@ -842,6 +858,7 @@ if(!String.prototype.formatNum) {
 				this.options.position.end.setTime(new Date(year, month, day + 1).getTime());
 				break;
 			case 'week':
+			case 'weektime':
 				var curr = new Date(year, month, day);
 				var first;
 				if(getExtentedOption(this, 'first_day') == 1) {
@@ -869,6 +886,7 @@ if(!String.prototype.formatNum) {
 				return this.locale.title_month.format(this.locale['m' + p.getMonth()], p.getFullYear());
 				break;
 			case 'week':
+			case 'weektime':
 				return this.locale.title_week.format(p.getWeek(getExtentedOption(this, 'week_numbers_iso_8601')), p.getFullYear());
 				break;
 			case 'day':
@@ -1112,6 +1130,9 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_week = function() {
+	};
+	
+	Calendar.prototype._update_weektime = function() {
 	};
 
 	Calendar.prototype._update_year = function() {
