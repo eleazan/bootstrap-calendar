@@ -510,6 +510,7 @@ if(!String.prototype.formatNum) {
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
+		var daily_start = start;
 		var end = new Date(this.options.position.end.getTime());
 		end.setHours(time_end[0]);
 		end.setMinutes(time_end[1]);
@@ -550,7 +551,10 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 
-			var event_start = start.getTime() - e.start;
+			daily_start.setDate(s.getDate());
+			daily_start.setMonth(s.getMonth());
+			daily_start.setFullYear(s.getFullYear());
+			var event_start = daily_start.getTime() - e.start;
 
 			if(event_start >= 0) {
 				e.top = 0;
