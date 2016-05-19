@@ -1,0 +1,18 @@
+<div class="span1 col-xs-1"></div>
+<div class="span11 col-xs-11">
+	<div class="row-fluid weektime-event-container" style="position: relative;" >
+  <% _.each(by_hour, function(event){   %>
+    <% var currdate = new Date(event.start); %>
+    <% var real_top = parseInt(event.top % 24); console.log(event); %>
+  
+  		<div class="cal-cell-<%= event.days%>-7 cal-offset-<%= event.start_day %>-7 day-event day-time-highlight" style="top: <%= (real_top * 30) %>px; height: <%= (event.lines * 30) %>px; position:absolute;">
+  			<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
+  			<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
+  			   data-event-class="<%= event['class'] %>" class="event-item">
+  				<%= event.title %></a>
+  		</div>
+  
+  
+    <% }); %>
+	</div>
+</div>
