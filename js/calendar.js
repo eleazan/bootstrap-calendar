@@ -1137,6 +1137,7 @@ if(!String.prototype.formatNum) {
 	};
 	
 	Calendar.prototype._update_weektime = function() {
+		$('#cal-weektime-box').height($('#cal-day-panel-hour').height());
 	};
 
 	Calendar.prototype._update_year = function() {
