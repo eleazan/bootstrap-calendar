@@ -9,11 +9,12 @@
 		<div style="display: inline-block" class="span11 col-xs-11">
 			<div class="row-fluid">
 			<%
-
+			var weekdates = new Array();
 			_.each(days_name, function(name) { %>
 			<div class="cal-cell1 <%= cal._getDayClass('week', start) %>" data-toggle="tooltip" title="<%= cal._getHolidayName(start) %>"><%= name %><br>
 				<small><span data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>" data-cal-view="day"><%= start.getDate() %> <%= cal.locale['ms' + start.getMonth()] %></span></small>
 			</div>
+			<% weekdates.push(start.getFullYear()+"-"+start.getMonthFormatted()+"-"+start.getDateFormatted()); %>
 			<% start.setDate(start.getDate() + 1); %>
 			<% }) %>
 		</div>
@@ -33,7 +34,7 @@
 						<div class="span11 col-xs-11" style="height: 100%;">
 							<div class="row-fluid weektime-event-container" style="height: 100%;">
 								<% for( d = 0; d < 7; d++) { %>
-									<div class="cal-cell-1-7 cal-offset-<%= d %>-7 click-weektime-day" style="height: 100%;" data-calendar-time="<%= cal._hour(i, l) %>" data-calendar-day="">
+									<div class="cal-cell-1-7 cal-offset-<%= d %>-7 click-weektime-day" style="height: 100%;" data-calendar-time="<%= cal._hour(i, l) %>" data-calendar-day="<%= weekdates[d] %>">
 										
 									</div>
 								<% } %>
